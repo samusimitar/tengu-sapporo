@@ -7174,6 +7174,7 @@ html.boxed .body {
 */
 html #header .header-logo.custom-header-logo:before {
 	background-color: #56930b;
+	margin-left: 24px;
 }
 /*
 * Sticky Sidebar
