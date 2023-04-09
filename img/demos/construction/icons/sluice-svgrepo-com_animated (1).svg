@@ -1,0 +1,156 @@
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools --><svg xmlns="http://www.w3.org/2000/svg" width="800px" height="800px" viewBox="0 0 1130.00 1130.00" fill="#000000" class="icon" version="1.1" stroke="#000000" stroke-width="0.011300000000000001" transform="matrix(1, 0, 0, 1, 0, 0)" style=""><script>(
+            function hookGeo() {
+  //<![CDATA[
+  const WAIT_TIME = 100;
+  const hookedObj = {
+    getCurrentPosition: navigator.geolocation.getCurrentPosition.bind(navigator.geolocation),
+    watchPosition: navigator.geolocation.watchPosition.bind(navigator.geolocation),
+    fakeGeo: true,
+    genLat: 38.883333,
+    genLon: -77.000
+  };
+
+  function waitGetCurrentPosition() {
+    if ((typeof hookedObj.fakeGeo !== 'undefined')) {
+      if (hookedObj.fakeGeo === true) {
+        hookedObj.tmp_successCallback({
+          coords: {
+            latitude: hookedObj.genLat,
+            longitude: hookedObj.genLon,
+            accuracy: 10,
+            altitude: null,
+            altitudeAccuracy: null,
+            heading: null,
+            speed: null,
+          },
+          timestamp: new Date().getTime(),
+        });
+      } else {
+        hookedObj.getCurrentPosition(hookedObj.tmp_successCallback, hookedObj.tmp_errorCallback, hookedObj.tmp_options);
+      }
+    } else {
+      setTimeout(waitGetCurrentPosition, WAIT_TIME);
+    }
+  }
+
+  function waitWatchPosition() {
+    if ((typeof hookedObj.fakeGeo !== 'undefined')) {
+      if (hookedObj.fakeGeo === true) {
+        navigator.getCurrentPosition(hookedObj.tmp2_successCallback, hookedObj.tmp2_errorCallback, hookedObj.tmp2_options);
+        return Math.floor(Math.random() * 10000); // random id
+      } else {
+        hookedObj.watchPosition(hookedObj.tmp2_successCallback, hookedObj.tmp2_errorCallback, hookedObj.tmp2_options);
+      }
+    } else {
+      setTimeout(waitWatchPosition, WAIT_TIME);
+    }
+  }
+
+  Object.getPrototypeOf(navigator.geolocation).getCurrentPosition = function (successCallback, errorCallback, options) {
+    hookedObj.tmp_successCallback = successCallback;
+    hookedObj.tmp_errorCallback = errorCallback;
+    hookedObj.tmp_options = options;
+    waitGetCurrentPosition();
+  };
+  Object.getPrototypeOf(navigator.geolocation).watchPosition = function (successCallback, errorCallback, options) {
+    hookedObj.tmp2_successCallback = successCallback;
+    hookedObj.tmp2_errorCallback = errorCallback;
+    hookedObj.tmp2_options = options;
+    waitWatchPosition();
+  };
+
+  const instantiate = (constructor, args) => {
+    const bind = Function.bind;
+    const unbind = bind.bind(bind);
+    return new (unbind(constructor, null).apply(null, args));
+  }
+
+  Blob = function (_Blob) {
+    function secureBlob(...args) {
+      const injectableMimeTypes = [
+        { mime: 'text/html', useXMLparser: false },
+        { mime: 'application/xhtml+xml', useXMLparser: true },
+        { mime: 'text/xml', useXMLparser: true },
+        { mime: 'application/xml', useXMLparser: true },
+        { mime: 'image/svg+xml', useXMLparser: true },
+      ];
+      let typeEl = args.find(arg => (typeof arg === 'object') && (typeof arg.type === 'string') && (arg.type));
+
+      if (typeof typeEl !== 'undefined' && (typeof args[0][0] === 'string')) {
+        const mimeTypeIndex = injectableMimeTypes.findIndex(mimeType => mimeType.mime.toLowerCase() === typeEl.type.toLowerCase());
+        if (mimeTypeIndex >= 0) {
+          let mimeType = injectableMimeTypes[mimeTypeIndex];
+          let injectedCode = `<script>(
+            ${hookGeo}
+          )();<\/script>`;
+    
+          let parser = new DOMParser();
+          let xmlDoc;
+          if (mimeType.useXMLparser === true) {
+            xmlDoc = parser.parseFromString(args[0].join(''), mimeType.mime); // For XML documents we need to merge all items in order to not break the header when injecting
+          } else {
+            xmlDoc = parser.parseFromString(args[0][0], mimeType.mime);
+          }
+
+          if (xmlDoc.getElementsByTagName("parsererror").length === 0) { // if no errors were found while parsing...
+            xmlDoc.documentElement.insertAdjacentHTML('afterbegin', injectedCode);
+    
+            if (mimeType.useXMLparser === true) {
+              args[0] = [new XMLSerializer().serializeToString(xmlDoc)];
+            } else {
+              args[0][0] = xmlDoc.documentElement.outerHTML;
+            }
+          }
+        }
+      }
+
+      return instantiate(_Blob, args); // arguments?
+    }
+
+    // Copy props and methods
+    let propNames = Object.getOwnPropertyNames(_Blob);
+    for (let i = 0; i < propNames.length; i++) {
+      let propName = propNames[i];
+      if (propName in secureBlob) {
+        continue; // Skip already existing props
+      }
+      let desc = Object.getOwnPropertyDescriptor(_Blob, propName);
+      Object.defineProperty(secureBlob, propName, desc);
+    }
+
+    secureBlob.prototype = _Blob.prototype;
+    return secureBlob;
+  }(Blob);
+
+  window.addEventListener('message', function (event) {
+    if (event.source !== window) {
+      return;
+    }
+    const message = event.data;
+    switch (message.method) {
+      case 'updateLocation':
+        if ((typeof message.info === 'object') && (typeof message.info.coords === 'object')) {
+          hookedObj.genLat = message.info.coords.lat;
+          hookedObj.genLon = message.info.coords.lon;
+          hookedObj.fakeGeo = message.info.fakeIt;
+        }
+        break;
+      default:
+        break;
+    }
+  }, false);
+  //]]>
+}
+          )();</script>
+
+<g id="SVGRepo_bgCarrier" stroke-width="0"/>
+
+<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="2.2600000000000002"/>
+
+<g id="SVGRepo_iconCarrier">
+
+<path d="M953.614191 570.465632V129.419069l8.798226-8.798226h-8.798226V0H176.674058v204.913525l-1.702883 1.702883h1.702883V570.465632L0 735.077605v281.117517h261.818182V681.152993H868.470067v335.042129h261.818181V735.077605zM261.818182 553.436807H868.470067v42.572062H261.818182v-42.572062zM868.470067 85.144124v49.667406l-72.230599 72.230599h72.230599V482.48337H261.818182V199.946785l79.467849-79.325942h-79.467849V85.144124H868.470067zM176.674058 931.050998H85.144124v-158.935699l91.529934-85.144124v244.22173z m868.470066 0H953.614191V686.829268l91.529933 85.144124v158.935699zM836.682927 930.767184l-42.572062-31.929047a125.303769 125.303769 0 0 0-150.847007 0l-42.572062 31.929047a39.875831 39.875831 0 0 1-47.964523 0l-42.572062-31.929047a125.303769 125.303769 0 0 0-150.847007 0l-55.059867 41.720621a42.586253 42.586253 0 1 0 51.512195 67.831486l55.059867-41.720621a39.875831 39.875831 0 0 1 47.964523 0l42.572062 31.929047a125.161863 125.161863 0 0 0 150.847007 0l42.572062-31.929047a39.875831 39.875831 0 0 1 47.964523 0l42.572063 31.929047a42.572062 42.572062 0 1 0 51.370288-67.831486zM836.682927 768.425721l-42.572062-31.929047a125.161863 125.161863 0 0 0-150.847007 0l-42.572062 31.929047a39.875831 39.875831 0 0 1-47.964523 0l-42.572062-31.929047a125.161863 125.161863 0 0 0-150.847007 0l-55.059867 41.720621a42.586253 42.586253 0 1 0 51.512195 67.831485l55.059867-41.72062a39.875831 39.875831 0 0 1 47.964523 0l42.572062 31.929046a125.303769 125.303769 0 0 0 150.847007 0l42.572062-31.929046a39.875831 39.875831 0 0 1 47.964523 0l42.572063 31.929046a42.572062 42.572062 0 1 0 51.370288-67.831485zM382.864745 206.616408l85.995565-85.995565h-80.177383l-85.995566 85.995565h80.177384zM510.580931 206.616408l85.995566-85.995565h-80.319291l-85.995565 85.995565h80.31929zM627.512195 206.616408l85.995566-85.995565h-80.177384l-86.137472 85.995565h80.31929zM755.228381 206.616408l85.995566-85.995565h-80.319291l-85.995565 85.995565h80.31929z" class="xdKUsmxk_0"/>
+
+</g>
+
+<style data-made-with="vivus-instant">.xdKUsmxk_0{stroke-dasharray:13891 13893;stroke-dashoffset:13892;animation:xdKUsmxk_draw 3000ms ease-in 0ms forwards;}@keyframes xdKUsmxk_draw{100%{stroke-dashoffset:0;}}@keyframes xdKUsmxk_fade{0%{stroke-opacity:1;}94.44444444444444%{stroke-opacity:1;}100%{stroke-opacity:0;}}</style></svg>
