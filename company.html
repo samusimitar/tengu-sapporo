@@ -50,7 +50,8 @@
 		<script src="vendor/modernizr/modernizr.min.js"></script>
 
 	</head>
-	<body class="loading-overlay-showing" data-loading-overlay data-plugin-options="{'hideDelay': 500, 'effect': 'cubes'}">
+	<!-- <body class="loading-overlay-showing" data-loading-overlay data-plugin-options="{'hideDelay': 500, 'effect': 'cubes'}"> -->
+	<body data-plugin-scroll-spy data-plugin-options="{'target': '#sidebar', 'effect': 'cubes'}">
 
 		<div class="body">
 			<header id="header" class="header-transparent header-semi-transparent header-semi-transparent-light" data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': false, 'stickyStartAt': 1, 'stickySetTop': '1'}">
@@ -74,12 +75,12 @@
 											<nav class="collapse px-3-5">
 												<ul class="nav nav-pills" id="mainNav">
 													<li>
-														<a class="nav-link active" href="index.html">
+														<a class="nav-link" href="index.html">
 															ホーム
 														</a>
 													</li>
 													<li>
-														<a class="nav-link" href="company.html">
+														<a class="nav-link active" href="company.html">
 															会社案内
 														</a>
 													</li>
@@ -481,37 +482,37 @@
 											組織図
 										</a>
 									</li>
-									<li class="nav-item mb-0">
+									<li class="nav-item border border-color-grey-1 border-top-0 border-end-0 border-start-0 mb-0">
 										<a class="nav-link text-color-dark text-color-hover-primary py-3 ps-0" data-hash data-hash-offset="0" data-hash-offset-lg="110" href="#management-rinen">
 											<i class="fas fa-chevron-right text-1 position-relative top-1 pe-3-5"></i>
 											経営理念
 										</a>
 									</li>
-									<li class="nav-item mb-0">
+									<li class="nav-item border border-color-grey-1 border-top-0 border-end-0 border-start-0 mb-0">
 										<a class="nav-link text-color-dark text-color-hover-primary py-3 ps-0" data-hash data-hash-offset="0" data-hash-offset-lg="110" href="#shikakusha">
 											<i class="fas fa-chevron-right text-1 position-relative top-1 pe-3-5"></i>
 											有資格者
 										</a>
 									</li>
-									<li class="nav-item mb-0">
+									<li class="nav-item border border-color-grey-1 border-top-0 border-end-0 border-start-0 mb-0">
 										<a class="nav-link text-color-dark text-color-hover-primary py-3 ps-0" data-hash data-hash-offset="0" data-hash-offset-lg="110" href="#compliance">
 											<i class="fas fa-chevron-right text-1 position-relative top-1 pe-3-5"></i>
 											コンプライアンス
 										</a>
 									</li>
-									<li class="nav-item mb-0">
+									<li class="nav-item border border-color-grey-1 border-top-0 border-end-0 border-start-0 mb-0">
 										<a class="nav-link text-color-dark text-color-hover-primary py-3 ps-0" data-hash data-hash-offset="0" data-hash-offset-lg="110" href="#shacho-aisatsu">
 											<i class="fas fa-chevron-right text-1 position-relative top-1 pe-3-5"></i>
 											社長挨拶
 										</a>
 									</li>
-									<li class="nav-item mb-0">
+									<li class="nav-item border border-color-grey-1 border-top-0 border-end-0 border-start-0 mb-0">
 										<a class="nav-link text-color-dark text-color-hover-primary py-3 ps-0" data-hash data-hash-offset="0" data-hash-offset-lg="110" href="#info-security">
 											<i class="fas fa-chevron-right text-1 position-relative top-1 pe-3-5"></i>
 											情報セキュリティ
 										</a>
 									</li>
-									<li class="nav-item mb-0">
+									<li class="nav-item border border-color-grey-1 border-top-0 border-end-0 border-start-0 mb-0">
 										<a class="nav-link text-color-dark text-color-hover-primary py-3 ps-0" data-hash data-hash-offset="0" data-hash-offset-lg="110" href="#kaisha-joho">
 											<i class="fas fa-chevron-right text-1 position-relative top-1 pe-3-5"></i>
 											会社情報
@@ -540,7 +541,7 @@
 							</a>
 						</div>
 						<div class="col-lg-4 offset-lg-1">
-							<h4 class="text-color-dark font-weight-bold mb-4-5">Navigation</h4>
+							<h4 class="text-color-dark font-weight-bold mb-4-5">ナビゲーション</h4>
 							<ul class="list list-unstyled columns-lg-2">
 								<li>
 									<a href="demo-construction.html" class="text-color-hover-primary">
@@ -557,11 +558,11 @@
 										業務内容
 									</a>
 								</li>
-								<li>
+								<!-- <li>
 									<a href="demo-construction-projects.html" class="text-color-hover-primary">
 										プロジェクト
 									</a>
-								</li>
+								</li> -->
 								<li>
 									<a href="demo-construction-blog.html" class="text-color-hover-primary">
 										ブログ
@@ -633,6 +634,10 @@
 
 		<!-- Theme Initialization Files -->
 		<script src="js/theme.init.js"></script>
+
+		<script src="js/demos/demo-construction-2.js"></script>
+
+		<script src="vendor/modernizr/modernizr.min.js"></script>
 
 	</body>
 </html>
