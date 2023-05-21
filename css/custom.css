@@ -1,7 +1,12 @@
 .num {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .company {
-    background: linear-gradient(to left, #ffffff, #f9fff9);
+  background: linear-gradient(to left, #ffffff, #f9fff9);
+}
+
+.table-shikaku {
+  border-collapse: separate;
+  border-spacing: 0 20px;
 }

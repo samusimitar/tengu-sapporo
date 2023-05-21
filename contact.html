@@ -366,8 +366,8 @@
               </p>
               <form
                 class="contact-form form-style-3"
-                action="php/contact-form.php"
                 method="POST"
+                id="contact-form"
               >
                 <div
                   class="contact-form-success alert alert-success d-none mt-4"
@@ -391,6 +391,7 @@
                       class="form-control text-3 h-auto py-3-5"
                       name="name"
                       placeholder="お名前"
+                      id="name"
                       required
                     />
                   </div>
@@ -406,6 +407,7 @@
                       class="form-control text-3 h-auto py-3-5"
                       name="email"
                       placeholder="メールアドレス"
+                      id="email"
                       required
                     />
                   </div>
@@ -419,6 +421,7 @@
                       maxlength="100"
                       class="form-control text-3 h-auto py-3-5"
                       name="subject"
+                      id="subject"
                       placeholder="お問い合せ件名"
                       required
                     />
@@ -432,6 +435,7 @@
                       rows="8"
                       class="form-control text-3 h-auto py-3-5"
                       name="message"
+                      id="message"
                       placeholder="お問い合せ内容"
                       required
                     ></textarea>
@@ -443,6 +447,7 @@
                       type="submit"
                       class="custom-view-more d-inline-flex align-items-center btn btn-primary font-weight-semibold rounded-0 text-3-5 btn-px-4 btn-py-2"
                       data-loading-text="Loading..."
+                      id="submit-button"
                     >
                       送信する
                       <img
@@ -466,11 +471,19 @@
               <h2 class="font-weight-bold text-color-dark text-6 mb-0">
                 アクセス
               </h2>
-              <div
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2918.465796944496!2d141.43700651594568!3d42.98952547914965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f74d5377d2f7615%3A0xd92dc8fa6d0000c2!2z77yI5qCq77yJ77y077yl77yu77yn77y1!5e0!3m2!1sja!2sjp!4v1510641548757"
+                width="760"
+                height="500"
+                frameborder="0"
+                style="border: 0"
+                allowfullscreen
+              ></iframe>
+              <!-- <div
                 id="googlemaps"
                 class="google-map m-0"
                 style="min-height: 450px"
-              ></div>
+              ></div> -->
             </div>
           </div>
           <div class="row">
@@ -724,7 +737,7 @@
     <script src="js/theme.js"></script>
 
     <!-- Current Page Vendor and Views -->
-    <script src="js/views/view.contact.js"></script>
+    <!-- <script src="js/views/view.contact.js"></script> -->
 
     <!-- Theme Custom -->
     <script src="js/custom.js"></script>
@@ -732,7 +745,7 @@
     <!-- Theme Initialization Files -->
     <script src="js/theme.init.js"></script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
     <script>
       /*
 			Map Settings
@@ -877,6 +890,53 @@
         e.preventDefault();
         $("#googlemaps").gMap("centerAt", options);
       };
+    </script> -->
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+    ></script>
+    <script>
+      const contactForm = document.querySelector("#contact-form");
+      const submitBtn = document.querySelector("#submit-button");
+      const nameInput = document.querySelector("#name");
+      const emailInput = document.querySelector("#email");
+      const subjectInput = document.querySelector("#subject");
+      const messageInput = document.querySelector("#message");
+      const publicKey = "wwnKkWQkQLOSxG_dz";
+      const serviceID = "service_ga3vgdm";
+      const templateID = "template_8o7gt86";
+
+      emailjs.init(publicKey);
+
+      contactForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        submitBtn.innerText = "送信中";
+
+        const inputFields = {
+          name: nameInput.value,
+          email: emailInput.value,
+          subject: subjectInput.value,
+          message: messageInput.value,
+        };
+
+        emailjs.send(serviceID, templateID, inputFields).then(
+          () => {
+            submitBtn.innerText = "お問い合わせを送信しました！";
+
+            nameInput.value = "";
+            emailInput.value = "";
+            subjectInput.value = "";
+            messageInput.value = "";
+          },
+          (error) => {
+            console.log(error);
+
+            submitBtn.innerText =
+              "エラーが発生しました。ページをリロードしてもう一度お試しください。";
+          }
+        );
+      });
     </script>
   </body>
 </html>
