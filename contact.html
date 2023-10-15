@@ -497,7 +497,7 @@
               <h2 class="font-weight-bold text-color-dark text-6 mb-0">
                 アクセス
               </h2>
-              <iframe
+              <!-- <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2918.465796944496!2d141.43700651594568!3d42.98952547914965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f74d5377d2f7615%3A0xd92dc8fa6d0000c2!2z77yI5qCq77yJ77y077yl77yu77yn77y1!5e0!3m2!1sja!2sjp!4v1510641548757"
                 width="760"
                 height="500"
@@ -505,7 +505,26 @@
                 style="border: 0"
                 allowfullscreen
                 ludocid="0"
-              ></iframe>
+              ></iframe> -->
+              <!-- <iframe
+                width="600"
+                height="450"
+                style="border: 0"
+                loading="lazy"
+                allowfullscreen
+                src="https://www.google.com/maps/embed/v1/place?q=https%3A%2F%2Fwww.google.com%2Fmaps%2Fplace%2F%25E3%2588%25B1TENGU%2F%4042.989391%2C141.4390712%2C21z%2Fdata%3D!3m1!5s0x5f74d5377d27c705%3A0xb69aa282c7df7881!4m6!3m5!1s0x5f74d5377d2f7615%3A0xd92dc8fa6d0000c2!8m2!3d42.989516!4d141.4391564!16s%252Fg%252F11bbvpl9p_%3Fentry%3Dttu&key=AIzaSyD27jWJpMId47GN-iztVdedUJeXHGYw6bA"
+              ></iframe> -->
+              <gmp-map
+                center="42.989383697509766,141.43963623046875"
+                zoom="14"
+                map-id="DEMO_MAP_ID"
+              >
+                <gmp-advanced-marker
+                  position="42.989383697509766,141.43963623046875"
+                  title="株式会社TENGU"
+                >
+                </gmp-advanced-marker>
+              </gmp-map>
               <!-- <div
                 id="googlemaps"
                 class="google-map m-0"
@@ -832,6 +851,10 @@
       type="text/javascript"
       src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
     ></script>
+    <script
+      async
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwCdJya6wXP1Q33kPdq-qbBrJJN5B0OMc&callback=console.debug&libraries=maps,marker&v=beta"
+    ></script>
     <script>
       const contactForm = document.querySelector("#contact-form");
       const submitBtn = document.querySelector("#submit-button");
@@ -855,6 +878,7 @@
           email: emailInput.value,
           subject: subjectInput.value,
           message: messageInput.value,
+          to_email: "tengu-info@tengu-sapporo.com",
         };
 
         emailjs.send(serviceID, templateID, inputFields).then(
