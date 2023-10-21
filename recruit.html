@@ -269,7 +269,7 @@
         <div class="container mt-4">
           <div class="row">
             <div
-              class="col-lg-12 order-lg-2 mt-0 appear-animation"
+              class="col-lg-8 order-lg-2 mt-0 appear-animation"
               data-appear-animation="fadeInUpShorterPlus"
               data-appear-animation-delay="1200"
             >
@@ -333,85 +333,96 @@
                   </tbody>
                 </table>
               </div>
-              <div id="history" class="row pb-4-5 mb-5">
-                <h2
-                  class="text-color-dark font-weight-bold text-7 line-height-1 mb-10 mt-4 text-center"
-                >
-                  応募フォーム
-                </h2>
-                <form
-                  class="contact-form form-style-3"
-                  action="php/contact-form.php"
-                  method="POST"
-                  id="apply-form"
-                >
-                  <div
-                    class="contact-form-success alert alert-success d-none mt-4"
-                  >
-                    <strong>Success!</strong> Your message has been sent to us.
-                  </div>
+            </div>
 
-                  <div
-                    class="contact-form-error alert alert-danger d-none mt-4"
+            <div class="col-lg-4 order-lg-1 position-relative">
+              <aside
+                class="sidebar"
+                id="sidebar"
+                data-plugin-sticky
+                data-plugin-options="{'minWidth': 991, 'containerSelector': '.container', 'padding': {'top': 110}}"
+              >
+                <div id="history" class="row pb-4-5 mb-5">
+                  <h2
+                    class="text-color-dark font-weight-bold text-7 line-height-1 mb-10 mt-4 text-center"
                   >
-                    <strong>Error!</strong> There was an error sending your
-                    message.
-                    <span class="mail-error-message text-1 d-block"></span>
-                  </div>
+                    応募フォーム
+                  </h2>
+                  <form
+                    class="contact-form form-style-3"
+                    action="php/contact-form.php"
+                    method="POST"
+                    id="apply-form"
+                  >
+                    <div
+                      class="contact-form-success alert alert-success d-none mt-4"
+                    >
+                      <strong>Success!</strong> Your message has been sent to
+                      us.
+                    </div>
 
-                  <div class="row">
-                    <div class="form-group col mb-3-5">
-                      <input
-                        type="text"
-                        value=""
-                        data-msg-required="お名前を入力ください"
-                        maxlength="100"
-                        class="form-control text-2 h-auto py-2-5"
-                        name="name"
-                        placeholder="お名前"
-                        id="form-name"
-                        required
-                      />
+                    <div
+                      class="contact-form-error alert alert-danger d-none mt-4"
+                    >
+                      <strong>Error!</strong> There was an error sending your
+                      message.
+                      <span class="mail-error-message text-1 d-block"></span>
                     </div>
-                  </div>
-                  <div class="row">
-                    <div class="form-group col mb-3-5">
-                      <input
-                        type="email"
-                        value=""
-                        data-msg-required="メールアドレスを入力ください"
-                        data-msg-email="正しいメールアドレスを入力ください"
-                        maxlength="100"
-                        class="form-control text-2 h-auto py-2-5"
-                        name="email"
-                        placeholder="メールアドレス"
-                        id="form-email"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="form-group col">
-                      <button
-                        type="submit"
-                        class="custom-view-more d-inline-flex align-items-center btn btn-primary font-weight-semibold rounded-0 text-2 btn-px-4 btn-py-1"
-                        data-loading-text="Loading..."
-                        id="submit-button"
-                      >
-                        応募する
-                        <img
-                          width="27"
-                          height="27"
-                          src="img/demos/construction/icons/arrow-right.svg"
-                          alt=""
-                          data-icon
-                          data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light ms-2'}"
+
+                    <div class="row">
+                      <div class="form-group col mb-3-5">
+                        <input
+                          type="text"
+                          value=""
+                          data-msg-required="お名前を入力ください"
+                          maxlength="100"
+                          class="form-control text-2 h-auto py-2-5"
+                          name="name"
+                          placeholder="お名前"
+                          id="form-name"
+                          required
                         />
-                      </button>
+                      </div>
                     </div>
-                  </div>
-                </form>
-              </div>
+                    <div class="row">
+                      <div class="form-group col mb-3-5">
+                        <input
+                          type="email"
+                          value=""
+                          data-msg-required="メールアドレスを入力ください"
+                          data-msg-email="正しいメールアドレスを入力ください"
+                          maxlength="100"
+                          class="form-control text-2 h-auto py-2-5"
+                          name="email"
+                          placeholder="メールアドレス"
+                          id="form-email"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group col">
+                        <button
+                          type="submit"
+                          class="custom-view-more d-inline-flex align-items-center btn btn-primary font-weight-semibold rounded-0 text-2 btn-px-4 btn-py-1"
+                          data-loading-text="Loading..."
+                          id="submit-button"
+                        >
+                          応募する
+                          <img
+                            width="27"
+                            height="27"
+                            src="img/demos/construction/icons/arrow-right.svg"
+                            alt=""
+                            data-icon
+                            data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light ms-2'}"
+                          />
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </aside>
             </div>
 
             <!-- Sidebar -->
