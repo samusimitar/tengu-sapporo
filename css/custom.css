@@ -10,3 +10,28 @@
   border-collapse: separate;
   border-spacing: 0 20px;
 }
+
+@media (min-width: 550px) {
+  .image-with-margin {
+    margin-right: 2.5rem;
+  }
+
+  .bridge-margin {
+    margin-right: 1.625rem;
+  }
+}
+
+@media (max-width: 550px) {
+  .image-with-margin {
+    margin-bottom: 1rem;
+  }
+
+  .bridge-margin {
+    margin-bottom: 1rem;
+  }
+}
+
+.link-without-underline {
+  text-decoration: none;
+  cursor: pointer;
+}

@@ -283,6 +283,10 @@
                   株式会社TENGUの採用情報
                 </h2>
                 <table class="table">
+                  <thead>
+                    <th class="px-5"></th>
+                    <th></th>
+                  </thead>
                   <tbody>
                     <tr>
                       <th class="">応募要件：</th>
@@ -339,8 +343,9 @@
               <aside
                 class="sidebar"
                 id="sidebar"
-                data-plugin-sticky
                 data-plugin-options="{'minWidth': 991, 'containerSelector': '.container', 'padding': {'top': 110}}"
+                data-appear-animation="fadeInUpShorterPlus"
+                data-appear-animation-delay="1200"
               >
                 <div id="history" class="row pb-4-5 mb-5">
                   <h2
@@ -350,11 +355,10 @@
                   </h2>
                   <form
                     class="contact-form form-style-3"
-                    action="php/contact-form.php"
                     method="POST"
                     id="apply-form"
                   >
-                    <div
+                    <!-- <div
                       class="contact-form-success alert alert-success d-none mt-4"
                     >
                       <strong>Success!</strong> Your message has been sent to
@@ -367,7 +371,7 @@
                       <strong>Error!</strong> There was an error sending your
                       message.
                       <span class="mail-error-message text-1 d-block"></span>
-                    </div>
+                    </div> -->
 
                     <div class="row">
                       <div class="form-group col mb-3-5">
@@ -531,7 +535,7 @@
             <div class="col-lg-2 align-self-center">
               <a href="index.html">
                 <img
-                  alt="Porto"
+                  alt="TENGU"
                   class="img-fluid logo"
                   width="489"
                   height="115"
@@ -588,7 +592,7 @@
                     data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-dark'}"
                   />
                   <a
-                    href="tel:0123456789"
+                    href="tel:0113756722"
                     class="text-decoration-none text-color-dark text-color-hover-primary font-weight-bold text-3-5 ms-2"
                     >011-375-6722</a
                   >
@@ -605,9 +609,9 @@
                     data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-dark'}"
                   />
                   <a
-                    href="mailto:0123456789"
+                    href="mailto:tengu-info@tengu-sapporo.com"
                     class="text-decoration-none text-color-dark text-color-hover-primary font-weight-bold text-3-5 ms-2"
-                    >info@tengu-sapporo.com</a
+                    >tengu-info@tengu-sapporo.com</a
                   >
                 </li>
               </ul>
@@ -669,7 +673,7 @@
     const emailInput = document.querySelector("#form-email");
     const publicKey = "NhFiBXKPectn50qGr";
     const serviceID = "service_gxt9hel";
-    const templateID = "template_8o7gt86";
+    const templateID = "template_t84451w";
 
     emailjs.init(publicKey);
 
@@ -681,8 +685,7 @@
       const inputFields = {
         name: nameInput.value,
         email: emailInput.value,
-        // to_email: "tengu-info@tengu-sapporo.com",
-        to_email: "jordi.bros1795@gmail.com",
+        to_email: "tengu-info@tengu-sapporo.com",
       };
 
       emailjs.send(serviceID, templateID, inputFields).then(
