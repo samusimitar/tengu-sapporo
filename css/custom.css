@@ -17,7 +17,7 @@
   }
 
   .bridge-margin {
-    margin-right: 1.625rem;
+    margin-right: -1rem;
   }
 }
 
@@ -34,4 +34,8 @@
 .link-without-underline {
   text-decoration: none;
   cursor: pointer;
+}
+
+.img-margin-btm {
+  margin-top: -2rem;
 }
