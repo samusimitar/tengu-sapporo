@@ -1633,131 +1633,22 @@
         </div>
       </div>
 
-      <footer
-        id="footer"
-        class="overflow-hidden border-0 m-0"
-        style="
-          background-image: url(img/demos/construction/backgrounds/background-2.jpg);
-          background-repeat: no-repeat;
-          background-position: center bottom;
-        "
-      >
-        <div class="container pt-5">
-          <div class="row pt-4 mb-5 gy-4">
-            <div class="col-lg-2 align-self-center">
-              <a href="index.html">
-                <img
-                  alt="TENGU"
-                  class="img-fluid logo"
-                  width="489"
-                  height="115"
-                  src="img/logos/tengu_logo_dark.png"
-                />
-              </a>
-            </div>
-            <div class="col-lg-4 offset-lg-1">
-              <h4 class="text-color-dark font-weight-bold mb-4-5">
-                ナビゲーション
-              </h4>
-              <ul class="list list-unstyled columns-lg-2">
-                <li>
-                  <a href="index.html" class="text-color-hover-primary">
-                    ホーム
-                  </a>
-                </li>
-                <li>
-                  <a href="company.html" class="text-color-hover-primary">
-                    会社案内
-                  </a>
-                </li>
-                <li>
-                  <a href="services.html" class="text-color-hover-primary">
-                    業務内容
-                  </a>
-                </li>
-                <li>
-                  <a href="gallery.html" class="text-color-hover-primary">
-                    事例ギャラリー
-                  </a>
-                </li>
-                <li>
-                  <a href="recruit.html" class="text-color-hover-primary">
-                    採用情報
-                  </a>
-                </li>
-                <li>
-                  <a href="contact.html" class="text-color-hover-primary">
-                    問い合わせ
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div class="col-lg-5">
-              <ul class="list list-unstyled list-inline">
-                <li class="list-inline-item d-inline-flex align-items-center">
-                  <img
-                    width="23"
-                    height="23"
-                    src="img/demos/construction/icons/phone.svg"
-                    alt=""
-                    data-icon
-                    data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-dark'}"
-                  />
-                  <a
-                    href="tel:0113756722"
-                    class="text-decoration-none text-color-dark text-color-hover-primary font-weight-bold text-3-5 ms-2"
-                    >011-375-6722</a
-                  >
-                </li>
-                <li
-                  class="list-inline-item d-inline-flex align-items-center ms-0 ms-sm-4 ms-lg-1 ms-xl-4"
-                >
-                  <img
-                    width="23"
-                    height="23"
-                    src="img/demos/construction/icons/email.svg"
-                    alt=""
-                    data-icon
-                    data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-dark'}"
-                  />
-                  <a
-                    href="mailto:tengu-info@tengu-sapporo.com"
-                    class="text-decoration-none text-color-dark text-color-hover-primary font-weight-bold text-3-5 ms-2"
-                    >tengu-info@tengu-sapporo.com</a
-                  >
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <hr />
-
-          <div class="footer-copyright bg-transparent pb-5 mt-5-5">
-            <div class="row pb-5">
-              <div class="col text-center mb-5">
-                <p class="text-color-grey text-3 mb-3">
-                  Copyright © 2014-2024 TENGU. All Rights Reserved.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="position-absolute left-100pct transform3dx-n50 top-0 d-none d-lg-block"
-        >
-          <div
-            class="appear-animation"
-            data-appear-animation="fadeInLeftShorterPlus"
-            data-appear-animation-delay="1000"
-            data-appear-animation-duration="1500ms"
-          >
-            <div
-              class="custom-square-1 custom-square-1-big bg-dark mt-0 mb-5 me-5"
-            ></div>
-          </div>
-        </div>
-      </footer>
+      <div id="footer-placeholder"></div>
     </div>
+
+    <!-- Load footer -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        fetch("components/footer.html")
+          .then((response) => response.text())
+          .then((data) => {
+            document.getElementById("footer-placeholder").innerHTML = data;
+            document.getElementById("year").textContent =
+              new Date().getFullYear();
+          })
+          .catch((error) => console.error("Error loading footer:", error));
+      });
+    </script>
 
     <!-- Vendor -->
     <script src="vendor/plugins/js/plugins.min.js"></script>
