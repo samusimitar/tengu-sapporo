@@ -1,0 +1,78 @@
+[
+  {
+    "id": "20250128",
+    "date": "2025/01/28",
+    "day_time": "(月) 8:00 - 13:00",
+    "title": "令和6年度の第二回懇親会 - キロロ国際スキー場",
+    "activity": "スノーボード",
+    "location": "キロロ国際スキー場",
+    "participants": "前田英光，當山貴之，佐藤恭介，菊池健仁，森谷桂太，武藤陵汰，⾧野皓斗，四十物怜央",
+    "images": [
+      "img/social-gathering/20250128-1.png",
+      "img/social-gathering/20250128-2.png",
+      "img/social-gathering/20250128-3.png",
+      "img/social-gathering/20250128-4.png",
+      "img/social-gathering/20250128-5.png",
+      "img/social-gathering/20250128-6.png",
+      "img/social-gathering/20250128-7.png",
+      "img/social-gathering/20250128-8.png"
+    ],
+    "description": "懇親会を通して会社の仲間との親睦が深まり日頃の運動不足解消と、自然に触れることで心の健康を整えることができました"
+  },
+  {
+    "id": "20241216",
+    "date": "2024/12/16",
+    "day_time": "(月) 8:00 - 13:00",
+    "title": "令和6年度の第一回懇親会 - ニセコアンヌプリ国際スキー場",
+    "activity": "スノーボード",
+    "location": "ニセコアンヌプリ国際スキー場",
+    "participants": "前田・當山・四十物・武藤・針生",
+    "images": [
+      "img/social-gathering/20241216-1.png",
+      "img/social-gathering/20241216-2.png",
+      "img/social-gathering/20241216-3.png",
+      "img/social-gathering/20241216-4.png",
+      "img/social-gathering/20241216-5.png",
+      "img/social-gathering/20241216-6.png"
+    ],
+    "description": ""
+  },
+  {
+    "id": "20240301",
+    "date": "2024/03/01",
+    "day_time": "(月) 15:30 - 20:00",
+    "title": "令和5年度の第二回懇親会 - フッズスノーエリア",
+    "activity": "スノーボード",
+    "location": "フッズスノーエリア",
+    "participants": "前田英光，當山貴之，佐藤恭介，武藤陵汰，長野皓斗",
+    "images": [
+      "img/social-gathering/20240301-1.png",
+      "img/social-gathering/20240301-2.png",
+      "img/social-gathering/20240301-3.png",
+      "img/social-gathering/20240301-4.png"
+    ],
+    "description": "懇親会を通して会社の仲間との親睦が深まり日頃の運動不足解消と、自然に触れることで心の健康を整えることができました。"
+  },
+  {
+    "id": "20240205",
+    "date": "2024/02/05",
+    "day_time": "(月) 16:00 - 19:00",
+    "title": "令和5年度の第一回懇親会 - フッズスノーエリア",
+    "activity": "スノーボード",
+    "location": "フッズスノーエリア",
+    "participants": "前田・當山・佐藤・四十物・武藤",
+    "images": [
+      "img/social-gathering/20240205-1.png",
+      "img/social-gathering/20240205-2.png",
+      "img/social-gathering/20240205-3.png",
+      "img/social-gathering/20240205-4.png"
+    ],
+    "description": ""
+  },
+  {
+    "id": "20230205",
+    "date": "2023/02/05",
+    "title": "TENGUホームページをリニューアル致しました。",
+    "content": "<p>弊社のホームページを本日リニューアルいたしました。今後とも最新の情報をお届けしてまいります。</p>"
+  }
+]

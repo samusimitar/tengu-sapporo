@@ -39,3 +39,48 @@
 .img-margin-btm {
   margin-top: -2rem;
 }
+
+#blog-images {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+#blog-images > div {
+  width: 50%;
+  padding: 0 15px;
+  margin-bottom: 30px;
+  /* Add these lines to center the image within each column */
+  display: flex;
+  justify-content: center;
+}
+
+#blog-images img {
+  /* Set fixed dimensions here */
+  width: 400px; /* Set your desired width */
+  height: 300px; /* Set your desired height */
+  object-fit: cover; /* This ensures images maintain aspect ratio and cover the area */
+  display: block;
+  border-radius: 0.5rem !important;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+@media (max-width: 767.98px) {
+  #blog-images > div {
+    width: 100%;
+  }
+
+  /* You may want to adjust image size for mobile */
+  #blog-images img {
+    width: 320px;
+    height: 240px;
+  }
+}
+
+.author-img {
+  width: 150px;
+  height: 80px;
+  object-fit: cover;
+  margin-left: 35px;
+}
