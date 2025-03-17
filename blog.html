@@ -269,59 +269,31 @@
           </div>
         </section>
 
-        <div class="container mt-4">
-            <div class="row">
-              <div
-                class="col-lg-12 order-lg-2 mt-0 appear-animation"
+        <div class="container mt-5 pt-4 mb-5 mb-lg-4 mb-xl-0 pb-3 pb-xl-0">
+          <div class="row">
+            <div class="col">
+              <h2
+                class="text-color-dark font-weight-bold text-7 line-height-1 mb-3-5 appear-animation"
                 data-appear-animation="fadeInUpShorterPlus"
-                data-appear-animation-delay="1200"
+                data-appear-animation-delay="200"
               >
-                <div id="blog-title-container" class="row">
-                  <h2
-                    class="text-color-dark font-weight-bold text-7 line-height-1 mb-4 mt-2 text-center" id="blog-title"
-                  ></h2>
-          
-                  <table class="table table-bordered table-hover shadow-sm">
-                    <thead class="bg-light">
-                      <tr>
-                        <th class="px-5 text-center">項目</th>
-                        <th class="text-center">詳細</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th class="bg-light">日時：</th>
-                        <td class="fw-bold" id="blog-date"></td>
-                      </tr>
-                      <tr>
-                        <th class="bg-light">会場：</th>
-                        <td class="fw-bold" id="blog-location"></td>
-                      </tr>
-                      <tr>
-                        <th class="bg-light">住所：</th>
-                        <td class="fw-bold" id="blog-address"></td>
-                      </tr>
-                      <tr>
-                        <th class="bg-light">参加者：</th>
-                        <td class="fw-bold" id="blog-participants"></td>
-                      </tr>
-                    </tbody>
-                  </table>
-          
-                  <div class="row mt-4" id="blog-images"></div>
-                </div>
-          
-                <!-- Stylized Bottom Text -->
-                <div class="text-center p-4 mt-4 bg-light text-dark rounded shadow-sm">
-                    <p class="text-5 fw-semibold" id="blog-description"></p>
-                </div>
-              </div>
+                ブログ
+              </h2>
+              <p
+                class="text-4 font-weight-light mb-5-5 appear-animation"
+                data-appear-animation="fadeInUpShorterPlus"
+                data-appear-animation-delay="400"
+              >
+                TENGUに関する最新情報
+              </p>
             </div>
-          
-
-            <div class="col-lg-4 order-lg-1 position-relative">
-              <!--  -->
-            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-shikaku">
+              <tbody id="blog-table">
+                <!-- Blog posts go here automatically. -->
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -329,195 +301,37 @@
       <div id="footer-placeholder"></div>
     </div>
 
-    <!-- Load blog post -->
-
+    <!-- Fetch blog posts -->
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-        const urlParams = new URLSearchParams(window.location.search);
-        const blogId = urlParams.get("id");
-
-        if (!blogId) {
-            document.getElementById("blog-title-container").innerHTML = "<p>ブログが見つかりません。</p>";
-            return;
-        }
-
+      document.addEventListener("DOMContentLoaded", function () {
         fetch("blog/posts.json")
-            .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-            })
-            .then(posts => {
-            let post = posts.find(p => p.id === blogId);
+          .then((response) => response.json())
+          .then((posts) => {
+            let blogTable = document.getElementById("blog-table");
+            blogTable.innerHTML = "";
 
-            if (!post) {
-                document.getElementById("blog-title-container").innerHTML = "<p>ブログが見つかりません。</p>";
-                return;
-            }
+            posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-            // Set the blog title
-            document.getElementById("blog-title").textContent = post.title || "";
-            
-            // Determine post type (default to 'event' if not specified)
-            const postType = post.type || (post.content ? 'article' : 'event');
-            
-            const contentContainer = document.getElementById("blog-title-container");
-            
-            if (postType === 'article') {
-                // Article layout: Date (if available) + Content
-                let articleHTML = '';
-                
-                // Add date if available
-                if (post.date) {
-                articleHTML += `<div class="text-center mb-4">
-                    <p class="text-muted">${post.date}</p>
-                </div>`;
-                }
-                
-                // Add content
-                if (post.content) {
-                articleHTML += `<div class="mt-4">
-                    <div class="text-4 article-content">${post.content}</div>
-                </div>`;
-                }
-                
-                // Replace the table with the article content
-                const tableElement = contentContainer.querySelector("table.table");
-                if (tableElement) {
-                // Create a container for the article content
-                const articleContainer = document.createElement("div");
-                articleContainer.className = "article-container";
-                articleContainer.innerHTML = articleHTML;
-                
-                // Replace table with article content
-                tableElement.parentNode.replaceChild(articleContainer, tableElement);
-                }
-            } else {
-                // Event layout: Table with details
-                const tableBody = document.querySelector("table.table tbody");
-                
-                // Clear existing table rows
-                tableBody.innerHTML = "";
-                
-                // Define the fields to display in the table and their labels
-                const tableFields = [
-                { key: "date", label: "日時" },
-                { key: "location", label: "会場" },
-                { key: "address", label: "住所" },
-                { key: "participants", label: "参加者" },
-                { key: "activity", label: "活動" }
-                ];
-                
-                // Create table rows dynamically based on available data
-                tableFields.forEach(field => {
-                // Only create the row if the data exists
-                if (post[field.key]) {
-                    // Special case for date and day_time
-                    let value = post[field.key];
-                    if (field.key === "date" && post["day_time"]) {
-                    value = `${post.date} ${post.day_time}`;
-                    }
-                    
-                    const row = document.createElement("tr");
-                    row.innerHTML = `
-                    <th class="bg-light">${field.label}：</th>
-                    <td class="fw-bold">${value}</td>
-                    `;
-                    tableBody.appendChild(row);
-                }
-                });
-            }
-            
-            // Set the description if available
-            const descriptionElement = document.getElementById("blog-description");
-            if (descriptionElement) {
-                if (post.description) {
-                descriptionElement.textContent = post.description;
-                descriptionElement.parentElement.style.display = "block";
-                } else {
-                // Hide the description container if there's no description
-                descriptionElement.parentElement.style.display = "none";
-                }
-            }
+            posts.forEach((post) => {
+              let row = document.createElement("tr");
+              row.classList.add("mb-5");
 
-            // Handle images
-            let imagesContainer = document.getElementById("blog-images");
-            
-            if (post.images && Array.isArray(post.images) && post.images.length > 0) {
-                imagesContainer.innerHTML = "";
-                
-                post.images.forEach((image, index) => {
-                const colDiv = document.createElement("div");
-                colDiv.className = "col-md-6 mb-4";
-                
-                const imgElement = document.createElement("img");
-                imgElement.src = image;
-                imgElement.alt = `Blog Image ${index + 1}`;
-                imgElement.className = "img-fluid rounded shadow-lg";
-                
-                imgElement.style.maxWidth = "100%";
-                imgElement.style.height = "auto";
-                
-                colDiv.appendChild(imgElement);
-                imagesContainer.appendChild(colDiv);
-                
-                // Apply animations after a short delay
-                setTimeout(() => {
-                    colDiv.classList.add("appear-animation");
-                    colDiv.dataset.appearAnimation = "fadeInUpShorterPlus";
-                    colDiv.dataset.appearAnimationDelay = (1200 + (index * 100)).toString();
-                }, 100);
-                });
-            } else {
-                imagesContainer.innerHTML = '';
-                // Don't show the empty message since some posts won't have images
-            }
-            })
-            .catch(error => {
-            document.getElementById("blog-title-container").innerHTML = 
-                `<p class="text-danger">エラーが発生しました: ${error.message}</p>`;
+              let dateCell = document.createElement("td");
+              dateCell.classList.add("text-4-5", "font-weight-light", "mb-3");
+              dateCell.textContent = post.date;
+
+              let titleCell = document.createElement("td");
+              titleCell.classList.add("text-4-5", "font-weight-light", "mb-3");
+
+              titleCell.innerHTML = `<a href="blog_post.html?id=${post.id}">${post.title}</a>`;
+
+              row.appendChild(dateCell);
+              row.appendChild(titleCell);
+              blogTable.appendChild(row);
             });
-        });
-      </script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-        setTimeout(() => {
-            const imageContainer = document.getElementById("blog-images");
-            if (!imageContainer) {
-            return;
-            }
-
-            const imagePaths = [];
-            document.querySelectorAll("#blog-images img").forEach(img => {
-            imagePaths.push(img.src);
-            });
-            
-            imageContainer.innerHTML = '';
-            
-            if (!imageContainer.classList.contains('row')) {
-            imageContainer.classList.add('row');
-            }
-
-            imagePaths.forEach((path, index) => {
-            
-            const col = document.createElement('div');
-            col.className = 'col-md-6 mb-4';
-            
-            const newImage = new Image();
-            newImage.src = path + '?nocache=' + new Date().getTime();
-            newImage.alt = `Blog Image ${index + 1}`;
-            newImage.className = 'img-fluid rounded shadow-lg';
-            newImage.style.maxWidth = '100%';
-            newImage.style.border = '2px solid green';
-            
-            col.appendChild(newImage);
-            
-            imageContainer.appendChild(col);
-            });
-        }, 1500);
-        });
+          })
+          .catch((error) => console.error("Error loading blog:", error));
+      });
     </script>
 
     <!-- Load footer -->
