@@ -285,6 +285,18 @@
                 data-appear-animation="fadeInUpShorterPlus"
                 data-appear-animation-delay="1200"
               >
+                <div class="row mb-4">
+                  <div class="col-12">
+                    <a
+                      href="blog.html"
+                      class="d-inline-block text-color-primary text-decoration-none appear-animation"
+                      data-appear-animation="fadeInUpShorterPlus"
+                      data-appear-animation-delay="500"
+                    >
+                      <i class="fas fa-chevron-left me-2"></i>一覧に戻る
+                    </a>
+                  </div>
+                </div>
                 <div id="blog-title-container" class="row">
                   <h2
                     class="text-color-dark font-weight-bold text-7 line-height-1 mb-4 mt-2 text-center" id="blog-title"
@@ -458,12 +470,12 @@
                 
                 post.images.forEach((image, index) => {
                 const colDiv = document.createElement("div");
-                colDiv.className = "col-md-6 mb-4";
+                colDiv.className = post.images.length === 1 ? "col-md-6 mb-4 mx-auto text-center" : "col-md-6 mb-4";
                 
                 const imgElement = document.createElement("img");
                 imgElement.src = image;
                 imgElement.alt = `Blog Image ${index + 1}`;
-                imgElement.className = "img-fluid rounded shadow-lg";
+                imgElement.className = "img-fluid rounded shadow-lg d-block mx-auto";
                 
                 imgElement.style.maxWidth = "100%";
                 imgElement.style.height = "auto";
@@ -512,12 +524,12 @@
             imagePaths.forEach((path, index) => {
             
             const col = document.createElement('div');
-            col.className = 'col-md-6 mb-4';
+            col.className = imagePaths.length === 1 ? 'col-md-6 mb-4 mx-auto text-center' : 'col-md-6 mb-4';
             
             const newImage = new Image();
             newImage.src = path + '?nocache=' + new Date().getTime();
             newImage.alt = `Blog Image ${index + 1}`;
-            newImage.className = 'img-fluid rounded shadow-lg';
+            newImage.className = 'img-fluid rounded shadow-lg d-block mx-auto';
             newImage.style.maxWidth = '100%';
             newImage.style.border = '2px solid green';
             
@@ -562,4 +574,21 @@
     type="text/javascript"
     src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
   ></script>
+  <style>
+    #blog-title-container table {
+      width: 100%;
+      table-layout: fixed !important;
+    }
+
+    #blog-title-container table th:first-child,
+    #blog-title-container table td:first-child {
+      width: 120px !important;
+      white-space: nowrap;
+    }
+
+    #blog-title-container table th:nth-child(2),
+    #blog-title-container table td:nth-child(2) {
+      width: auto !important;
+    }
+  </style>
 </html>
