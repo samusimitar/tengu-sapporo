@@ -481,6 +481,15 @@
                 imgElement.style.height = "auto";
                 
                 colDiv.appendChild(imgElement);
+                
+                // Add caption if available
+                if (post.captions && Array.isArray(post.captions) && post.captions[index]) {
+                    const captionElement = document.createElement("p");
+                    captionElement.className = "text-center mt-3 mb-0 text-4 font-weight-medium";
+                    captionElement.textContent = post.captions[index];
+                    colDiv.appendChild(captionElement);
+                }
+                
                 imagesContainer.appendChild(colDiv);
                 
                 // Apply animations after a short delay
@@ -511,8 +520,14 @@
             }
 
             const imagePaths = [];
-            document.querySelectorAll("#blog-images img").forEach(img => {
-            imagePaths.push(img.src);
+            const captions = [];
+            document.querySelectorAll("#blog-images > div").forEach(div => {
+            const img = div.querySelector('img');
+            const caption = div.querySelector('p');
+            if (img) {
+                imagePaths.push(img.src);
+                captions.push(caption ? caption.textContent : null);
+            }
             });
             
             imageContainer.innerHTML = '';
@@ -534,6 +549,14 @@
             newImage.style.border = '2px solid green';
             
             col.appendChild(newImage);
+            
+            // Add caption if it exists
+            if (captions[index]) {
+                const captionElement = document.createElement("p");
+                captionElement.className = "text-center mt-3 mb-0 text-4 font-weight-medium";
+                captionElement.textContent = captions[index];
+                col.appendChild(captionElement);
+            }
             
             imageContainer.appendChild(col);
             });
@@ -589,6 +612,23 @@
     #blog-title-container table th:nth-child(2),
     #blog-title-container table td:nth-child(2) {
       width: auto !important;
+    }
+
+    /* Image caption styling */
+    #blog-images > div {
+      display: flex;
+      flex-direction: column;
+    }
+
+    #blog-images img {
+      width: 100%;
+      display: block;
+    }
+
+    #blog-images p {
+      display: block;
+      width: 100%;
+      clear: both;
     }
   </style>
 </html>
