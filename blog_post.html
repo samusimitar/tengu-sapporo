@@ -75,13 +75,13 @@
     <!-- Head Libs -->
     <script src="vendor/modernizr/modernizr.min.js"></script>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QPLR9V5E4L"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-87SYS56BKV"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'G-QPLR9V5E4L');
+      gtag('config', 'G-87SYS56BKV');
     </script>
   </head>
   <body
@@ -333,8 +333,8 @@
                 </div>
           
                 <!-- Stylized Bottom Text -->
-                <div class="text-center p-4 mt-4 bg-light text-dark rounded shadow-sm">
-                    <p class="text-5 fw-semibold" id="blog-description"></p>
+                <div class="p-4 mt-4 bg-light text-dark rounded shadow-sm">
+                    <div class="text-5" id="blog-description"></div>
                 </div>
               </div>
             </div>
@@ -426,7 +426,7 @@
                 { key: "date", label: "日時" },
                 { key: "location", label: "会場" },
                 { key: "address", label: "住所" },
-                { key: "participants", label: "参加者" },
+                { key: "participants", label: post.participantsLabel || "参加者" },
                 { key: "activity", label: "活動" }
                 ];
                 
@@ -454,7 +454,7 @@
             const descriptionElement = document.getElementById("blog-description");
             if (descriptionElement) {
                 if (post.description) {
-                descriptionElement.textContent = post.description;
+                descriptionElement.innerHTML = post.description;
                 descriptionElement.parentElement.style.display = "block";
                 } else {
                 // Hide the description container if there's no description
