@@ -436,8 +436,11 @@
                 if (post[field.key]) {
                     // Special case for date and day_time
                     let value = post[field.key];
-                    if (field.key === "date" && post["day_time"]) {
-                    value = `${post.date} ${post.day_time}`;
+                    if (field.key === "date") {
+                    value = post.displayDate || post.date;
+                    if (!post.displayDate && post["day_time"]) {
+                        value = `${post.date} ${post.day_time}`;
+                    }
                     }
                     
                     const row = document.createElement("tr");
