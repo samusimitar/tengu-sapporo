@@ -297,20 +297,17 @@
                     </a>
                   </div>
                 </div>
-                <div id="blog-title-container" class="row">
-                  <h2
-                    class="text-color-dark font-weight-bold text-7 line-height-1 mb-4 mt-2 text-center" id="blog-title"
-                  ></h2>
-          
-                  <dl id="blog-meta" class="blog-meta"></dl>
-          
-                  <div class="row mt-4" id="blog-images"></div>
-                </div>
-          
-                <!-- Stylized Bottom Text -->
-                <div class="p-4 mt-4 bg-light text-dark rounded shadow-sm">
-                    <div class="text-5" id="blog-description"></div>
-                </div>
+                <article id="blog-title-container" class="blog-article">
+                  <h2 id="blog-title" class="blog-article-title"></h2>
+
+                  <div id="blog-meta" class="blog-meta"></div>
+
+                  <div class="row blog-images" id="blog-images"></div>
+
+                  <div class="blog-description-wrapper">
+                    <div id="blog-description" class="blog-description"></div>
+                  </div>
+                </article>
               </div>
             </div>
           
@@ -407,27 +404,29 @@
                     }
                     }
 
-                    const dt = document.createElement("dt");
-                    dt.className = "blog-meta-label";
-                    dt.textContent = field.label;
-                    const dd = document.createElement("dd");
-                    dd.className = "blog-meta-value";
-                    dd.textContent = value;
-                    metaList.appendChild(dt);
-                    metaList.appendChild(dd);
+                    const item = document.createElement("div");
+                    item.className = "blog-meta-item";
+                    const label = document.createElement("span");
+                    label.className = "blog-meta-label";
+                    label.textContent = field.label;
+                    const val = document.createElement("span");
+                    val.className = "blog-meta-value";
+                    val.textContent = value;
+                    item.appendChild(label);
+                    item.appendChild(val);
+                    metaList.appendChild(item);
                 }
                 });
             }
             
-            // Set the description if available
             const descriptionElement = document.getElementById("blog-description");
+            const descriptionWrapper = descriptionElement ? descriptionElement.closest(".blog-description-wrapper") : null;
             if (descriptionElement) {
                 if (post.description) {
                 descriptionElement.innerHTML = post.description;
-                descriptionElement.parentElement.style.display = "block";
-                } else {
-                // Hide the description container if there's no description
-                descriptionElement.parentElement.style.display = "none";
+                if (descriptionWrapper) descriptionWrapper.style.display = "block";
+                } else if (descriptionWrapper) {
+                descriptionWrapper.style.display = "none";
                 }
             }
 
@@ -444,8 +443,8 @@
                 const imgElement = document.createElement("img");
                 imgElement.src = image;
                 imgElement.alt = `Blog Image ${index + 1}`;
-                imgElement.className = "img-fluid rounded shadow-lg d-block mx-auto";
-                
+                imgElement.className = "img-fluid rounded d-block mx-auto blog-image";
+
                 imgElement.style.maxWidth = "100%";
                 imgElement.style.height = "auto";
                 
@@ -513,9 +512,8 @@
             const newImage = new Image();
             newImage.src = path + '?nocache=' + new Date().getTime();
             newImage.alt = `Blog Image ${index + 1}`;
-            newImage.className = 'img-fluid rounded shadow-lg d-block mx-auto';
+            newImage.className = 'img-fluid rounded d-block mx-auto blog-image';
             newImage.style.maxWidth = '100%';
-            newImage.style.border = '2px solid green';
             
             col.appendChild(newImage);
             
@@ -567,60 +565,101 @@
     src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
   ></script>
   <style>
+    .blog-article {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .blog-article-title {
+      color: #111827;
+      font-weight: 700;
+      font-size: clamp(1.65rem, 1rem + 2vw, 2.4rem);
+      line-height: 1.35;
+      letter-spacing: 0.01em;
+      text-align: center;
+      margin: 0.5rem 0 1.5rem;
+    }
+
     .blog-meta {
-      display: grid;
-      grid-template-columns: 7rem 1fr;
-      column-gap: 1.75rem;
-      row-gap: 0;
-      margin: 0 0 2rem;
-      padding: 0.5rem 1.75rem;
-      background: #fafafa;
-      border-radius: 10px;
-    }
-
-    .blog-meta dt,
-    .blog-meta dd {
-      margin: 0;
-      padding: 0.85rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem 2.5rem;
+      margin: 0 0 2.25rem;
+      padding: 1.1rem 0;
+      border-top: 1px solid #ececec;
       border-bottom: 1px solid #ececec;
-      font-size: 0.98rem;
-      line-height: 1.5;
     }
 
-    .blog-meta dt {
-      color: #6b7280;
+    .blog-meta-item {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .blog-meta-label {
+      color: #9ca3af;
+      font-size: 0.78rem;
       font-weight: 500;
-      letter-spacing: 0.02em;
+      margin-bottom: 0.2rem;
     }
 
-    .blog-meta dd {
+    .blog-meta-value {
       color: #1f2937;
+      font-size: 1rem;
       font-weight: 600;
+      line-height: 1.5;
+      word-break: break-word;
     }
 
-    .blog-meta dt:last-of-type,
-    .blog-meta dd:last-of-type {
-      border-bottom: none;
+    .blog-images {
+      margin: 0 -0.75rem 2.5rem;
+    }
+
+    .blog-image {
+      border-radius: 6px;
+    }
+
+    .blog-description-wrapper {
+      margin-top: 1rem;
+    }
+
+    .blog-description {
+      color: #1f2937;
+      font-size: 1.0625rem;
+      line-height: 1.9;
+    }
+
+    .blog-description p {
+      margin: 0 0 1.25em;
+    }
+
+    .blog-description p:last-child {
+      margin-bottom: 0;
+    }
+
+    .article-container {
+      color: #1f2937;
+      font-size: 1.0625rem;
+      line-height: 1.9;
+    }
+
+    .article-container .article-content p {
+      margin: 0 0 1.25em;
     }
 
     @media (max-width: 575px) {
+      .blog-article {
+        padding: 0 0.25rem;
+      }
+
       .blog-meta {
-        grid-template-columns: 1fr;
-        padding: 0.75rem 1.25rem;
+        gap: 1rem 1.5rem;
+        padding: 1rem 0;
       }
 
-      .blog-meta dt {
-        padding: 0.85rem 0 0.1rem;
-        border-bottom: none;
-        font-size: 0.85rem;
-      }
-
-      .blog-meta dd {
-        padding: 0 0 0.85rem;
-      }
-
-      .blog-meta dt:last-of-type {
-        /* keep zero bottom-border behavior */
+      .blog-description {
+        font-size: 1rem;
+        line-height: 1.85;
       }
     }
 
@@ -639,6 +678,8 @@
       display: block;
       width: 100%;
       clear: both;
+      color: #6b7280;
+      font-size: 0.95rem;
     }
   </style>
 </html>
