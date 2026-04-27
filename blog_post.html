@@ -302,32 +302,7 @@
                     class="text-color-dark font-weight-bold text-7 line-height-1 mb-4 mt-2 text-center" id="blog-title"
                   ></h2>
           
-                  <table class="table table-bordered table-hover shadow-sm">
-                    <thead class="bg-light">
-                      <tr>
-                        <th class="px-5 text-center">項目</th>
-                        <th class="text-center">詳細</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th class="bg-light">日時：</th>
-                        <td class="fw-bold" id="blog-date"></td>
-                      </tr>
-                      <tr>
-                        <th class="bg-light">会場：</th>
-                        <td class="fw-bold" id="blog-location"></td>
-                      </tr>
-                      <tr>
-                        <th class="bg-light">住所：</th>
-                        <td class="fw-bold" id="blog-address"></td>
-                      </tr>
-                      <tr>
-                        <th class="bg-light">参加者：</th>
-                        <td class="fw-bold" id="blog-participants"></td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <dl id="blog-meta" class="blog-meta"></dl>
           
                   <div class="row mt-4" id="blog-images"></div>
                 </div>
@@ -403,25 +378,17 @@
                 </div>`;
                 }
                 
-                // Replace the table with the article content
-                const tableElement = contentContainer.querySelector("table.table");
-                if (tableElement) {
-                // Create a container for the article content
+                const metaElement = contentContainer.querySelector("#blog-meta");
+                if (metaElement) {
                 const articleContainer = document.createElement("div");
                 articleContainer.className = "article-container";
                 articleContainer.innerHTML = articleHTML;
-                
-                // Replace table with article content
-                tableElement.parentNode.replaceChild(articleContainer, tableElement);
+                metaElement.parentNode.replaceChild(articleContainer, metaElement);
                 }
             } else {
-                // Event layout: Table with details
-                const tableBody = document.querySelector("table.table tbody");
-                
-                // Clear existing table rows
-                tableBody.innerHTML = "";
-                
-                // Define the fields to display in the table and their labels
+                const metaList = document.getElementById("blog-meta");
+                metaList.innerHTML = "";
+
                 const tableFields = [
                 { key: "date", label: "日時" },
                 { key: "location", label: "会場" },
@@ -429,12 +396,9 @@
                 { key: "participants", label: post.participantsLabel || "参加者" },
                 { key: "activity", label: "活動" }
                 ];
-                
-                // Create table rows dynamically based on available data
+
                 tableFields.forEach(field => {
-                // Only create the row if the data exists
                 if (post[field.key]) {
-                    // Special case for date and day_time
                     let value = post[field.key];
                     if (field.key === "date") {
                     value = post.displayDate || post.date;
@@ -442,13 +406,15 @@
                         value = `${post.date} ${post.day_time}`;
                     }
                     }
-                    
-                    const row = document.createElement("tr");
-                    row.innerHTML = `
-                    <th class="bg-light">${field.label}：</th>
-                    <td class="fw-bold">${value}</td>
-                    `;
-                    tableBody.appendChild(row);
+
+                    const dt = document.createElement("dt");
+                    dt.className = "blog-meta-label";
+                    dt.textContent = field.label;
+                    const dd = document.createElement("dd");
+                    dd.className = "blog-meta-value";
+                    dd.textContent = value;
+                    metaList.appendChild(dt);
+                    metaList.appendChild(dd);
                 }
                 });
             }
@@ -601,20 +567,61 @@
     src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
   ></script>
   <style>
-    #blog-title-container table {
-      width: 100%;
-      table-layout: fixed !important;
+    .blog-meta {
+      display: grid;
+      grid-template-columns: 7rem 1fr;
+      column-gap: 1.75rem;
+      row-gap: 0;
+      margin: 0 0 2rem;
+      padding: 0.5rem 1.75rem;
+      background: #fafafa;
+      border-radius: 10px;
     }
 
-    #blog-title-container table th:first-child,
-    #blog-title-container table td:first-child {
-      width: 120px !important;
-      white-space: nowrap;
+    .blog-meta dt,
+    .blog-meta dd {
+      margin: 0;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid #ececec;
+      font-size: 0.98rem;
+      line-height: 1.5;
     }
 
-    #blog-title-container table th:nth-child(2),
-    #blog-title-container table td:nth-child(2) {
-      width: auto !important;
+    .blog-meta dt {
+      color: #6b7280;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    .blog-meta dd {
+      color: #1f2937;
+      font-weight: 600;
+    }
+
+    .blog-meta dt:last-of-type,
+    .blog-meta dd:last-of-type {
+      border-bottom: none;
+    }
+
+    @media (max-width: 575px) {
+      .blog-meta {
+        grid-template-columns: 1fr;
+        padding: 0.75rem 1.25rem;
+      }
+
+      .blog-meta dt {
+        padding: 0.85rem 0 0.1rem;
+        border-bottom: none;
+        font-size: 0.85rem;
+      }
+
+      .blog-meta dd {
+        padding: 0 0 0.85rem;
+      }
+
+      .blog-meta dt:last-of-type {
+        /* keep zero bottom-border behavior */
+      }
     }
 
     /* Image caption styling */
