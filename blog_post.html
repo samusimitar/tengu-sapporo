@@ -231,20 +231,22 @@
       </header>
 
       <div role="main" class="main">
-        <section class="section section-height-3 border-0 m-0">
-          <div class="container position-relative pt-5 pb-5-5 mt-5 mb-5">
-            <div class="row justify-content-end pt-1 mt-lg-5">
+        <section class="section section-height-3 border-0 m-0 blog-hero">
+          <div class="container position-relative pt-5 pb-3 mt-5 mb-2">
+            <div class="row justify-content-end pt-1 mt-lg-3">
               <div class="col-7 col-md-5 position-relative">
-                <ul
-                  class="breadcrumb d-block ps-2 appear-animation"
-                  data-appear-animation="fadeInLeftShorterPlus"
-                  data-appear-animation-delay="200"
-                >
-                  <li><a href="index.html">ホーム</a></li>
-                  <li class="active">ブログ</li>
-                </ul>
+                <div class="blog-breadcrumb-lift">
+                  <ul
+                    class="breadcrumb d-block ps-2 appear-animation"
+                    data-appear-animation="fadeInLeftShorterPlus"
+                    data-appear-animation-delay="200"
+                  >
+                    <li><a href="index.html">ホーム</a></li>
+                    <li class="active">ブログ</li>
+                  </ul>
+                </div>
                 <h1
-                  class="position-absolute top-100 left-0 text-color-light font-weight-bold text-6 line-height-3 text-end mt-5-5"
+                  class="position-absolute top-100 left-0 text-color-light font-weight-bold text-6 line-height-3 text-end mt-3"
                 >
                   <span
                     class="d-block position-relative z-index-1 pb-5 ps-lg-3 appear-animation"
@@ -279,7 +281,7 @@
         </section>
 
         <div class="blog-post-bg">
-          <div class="container pt-4 pb-5 mt-2">
+          <div class="container pt-3 pb-5">
             <div class="row">
               <div
                 class="col-lg-12 order-lg-2 mt-0 appear-animation"
@@ -561,19 +563,47 @@
     src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
   ></script>
   <style>
+    .blog-hero.section-height-3 {
+      min-height: 240px !important;
+    }
+
+    .blog-breadcrumb-lift {
+      transform: translateY(-1rem);
+    }
+
+    @media (max-width: 991.98px) {
+      .blog-hero > .container {
+        margin-top: 2.5rem !important;
+        padding-top: 2rem !important;
+      }
+    }
+
+
+    .blog-hero .breadcrumb {
+      margin-bottom: 0;
+    }
+
     .blog-post-bg {
       background:
         radial-gradient(1200px 400px at 50% -100px, #f1ede5 0%, rgba(241, 237, 229, 0) 70%),
         #f7f5f1;
-      padding: 2rem 0 3.5rem;
+      padding: 0.75rem 0 3rem;
+    }
+
+    .blog-post-bg > .container {
+      max-width: 1080px;
+    }
+
+    .blog-post-bg .row.mb-4 {
+      margin-bottom: 1rem !important;
     }
 
     .blog-article {
-      max-width: 820px;
+      max-width: 1040px;
       margin: 0 auto;
       background: #ffffff;
       border-radius: 14px;
-      padding: clamp(1.75rem, 1rem + 2vw, 3rem) clamp(1.25rem, 0.5rem + 2.5vw, 3rem);
+      padding: clamp(1.75rem, 1rem + 2vw, 2.75rem) clamp(1.5rem, 0.75rem + 2.5vw, 3.5rem);
       box-shadow:
         0 1px 2px rgba(17, 24, 39, 0.04),
         0 8px 24px rgba(17, 24, 39, 0.05);
