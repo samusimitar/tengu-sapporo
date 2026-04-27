@@ -231,20 +231,22 @@
       </header>
 
       <div role="main" class="main">
-        <section class="section section-height-3 border-0 m-0">
-          <div class="container position-relative pt-5 pb-5-5 mt-5 mb-5">
-            <div class="row justify-content-end pt-1 mt-lg-5">
+        <section class="section section-height-3 border-0 m-0 blog-hero">
+          <div class="container position-relative pt-5 pb-3 mt-5 mb-2">
+            <div class="row justify-content-end pt-1 mt-lg-3">
               <div class="col-7 col-md-5 position-relative">
-                <ul
-                  class="breadcrumb d-block ps-2 appear-animation"
-                  data-appear-animation="fadeInLeftShorterPlus"
-                  data-appear-animation-delay="200"
-                >
-                  <li><a href="index.html">ホーム</a></li>
-                  <li class="active">ブログ</li>
-                </ul>
+                <div class="blog-breadcrumb-lift">
+                  <ul
+                    class="breadcrumb d-block ps-2 appear-animation"
+                    data-appear-animation="fadeInLeftShorterPlus"
+                    data-appear-animation-delay="200"
+                  >
+                    <li><a href="index.html">ホーム</a></li>
+                    <li class="active">ブログ</li>
+                  </ul>
+                </div>
                 <h1
-                  class="position-absolute top-100 left-0 text-color-light font-weight-bold text-6 line-height-3 text-end mt-5-5"
+                  class="position-absolute top-100 left-0 text-color-light font-weight-bold text-6 line-height-3 text-end mt-3"
                 >
                   <span
                     class="d-block position-relative z-index-1 pb-5 ps-lg-3 appear-animation"
@@ -278,7 +280,8 @@
           </div>
         </section>
 
-        <div class="container mt-4">
+        <div class="blog-post-bg">
+          <div class="container pt-3 pb-5">
             <div class="row">
               <div
                 class="col-lg-12 order-lg-2 mt-0 appear-animation"
@@ -297,51 +300,18 @@
                     </a>
                   </div>
                 </div>
-                <div id="blog-title-container" class="row">
-                  <h2
-                    class="text-color-dark font-weight-bold text-7 line-height-1 mb-4 mt-2 text-center" id="blog-title"
-                  ></h2>
-          
-                  <table class="table table-bordered table-hover shadow-sm">
-                    <thead class="bg-light">
-                      <tr>
-                        <th class="px-5 text-center">項目</th>
-                        <th class="text-center">詳細</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th class="bg-light">日時：</th>
-                        <td class="fw-bold" id="blog-date"></td>
-                      </tr>
-                      <tr>
-                        <th class="bg-light">会場：</th>
-                        <td class="fw-bold" id="blog-location"></td>
-                      </tr>
-                      <tr>
-                        <th class="bg-light">住所：</th>
-                        <td class="fw-bold" id="blog-address"></td>
-                      </tr>
-                      <tr>
-                        <th class="bg-light">参加者：</th>
-                        <td class="fw-bold" id="blog-participants"></td>
-                      </tr>
-                    </tbody>
-                  </table>
-          
-                  <div class="row mt-4" id="blog-images"></div>
-                </div>
-          
-                <!-- Stylized Bottom Text -->
-                <div class="p-4 mt-4 bg-light text-dark rounded shadow-sm">
-                    <div class="text-5" id="blog-description"></div>
-                </div>
-              </div>
-            </div>
-          
+                <article id="blog-title-container" class="blog-article">
+                  <h2 id="blog-title" class="blog-article-title"></h2>
 
-            <div class="col-lg-4 order-lg-1 position-relative">
-              <!--  -->
+                  <div id="blog-meta" class="blog-meta"></div>
+
+                  <div class="blog-description-wrapper">
+                    <div id="blog-description" class="blog-description"></div>
+                  </div>
+
+                  <div class="row blog-images" id="blog-images"></div>
+                </article>
+              </div>
             </div>
           </div>
         </div>
@@ -403,25 +373,17 @@
                 </div>`;
                 }
                 
-                // Replace the table with the article content
-                const tableElement = contentContainer.querySelector("table.table");
-                if (tableElement) {
-                // Create a container for the article content
+                const metaElement = contentContainer.querySelector("#blog-meta");
+                if (metaElement) {
                 const articleContainer = document.createElement("div");
                 articleContainer.className = "article-container";
                 articleContainer.innerHTML = articleHTML;
-                
-                // Replace table with article content
-                tableElement.parentNode.replaceChild(articleContainer, tableElement);
+                metaElement.parentNode.replaceChild(articleContainer, metaElement);
                 }
             } else {
-                // Event layout: Table with details
-                const tableBody = document.querySelector("table.table tbody");
-                
-                // Clear existing table rows
-                tableBody.innerHTML = "";
-                
-                // Define the fields to display in the table and their labels
+                const metaList = document.getElementById("blog-meta");
+                metaList.innerHTML = "";
+
                 const tableFields = [
                 { key: "date", label: "日時" },
                 { key: "location", label: "会場" },
@@ -429,12 +391,9 @@
                 { key: "participants", label: post.participantsLabel || "参加者" },
                 { key: "activity", label: "活動" }
                 ];
-                
-                // Create table rows dynamically based on available data
+
                 tableFields.forEach(field => {
-                // Only create the row if the data exists
                 if (post[field.key]) {
-                    // Special case for date and day_time
                     let value = post[field.key];
                     if (field.key === "date") {
                     value = post.displayDate || post.date;
@@ -442,26 +401,30 @@
                         value = `${post.date} ${post.day_time}`;
                     }
                     }
-                    
-                    const row = document.createElement("tr");
-                    row.innerHTML = `
-                    <th class="bg-light">${field.label}：</th>
-                    <td class="fw-bold">${value}</td>
-                    `;
-                    tableBody.appendChild(row);
+
+                    const item = document.createElement("div");
+                    item.className = "blog-meta-item";
+                    const label = document.createElement("span");
+                    label.className = "blog-meta-label";
+                    label.textContent = field.label;
+                    const val = document.createElement("span");
+                    val.className = "blog-meta-value";
+                    val.textContent = value;
+                    item.appendChild(label);
+                    item.appendChild(val);
+                    metaList.appendChild(item);
                 }
                 });
             }
             
-            // Set the description if available
             const descriptionElement = document.getElementById("blog-description");
+            const descriptionWrapper = descriptionElement ? descriptionElement.closest(".blog-description-wrapper") : null;
             if (descriptionElement) {
                 if (post.description) {
                 descriptionElement.innerHTML = post.description;
-                descriptionElement.parentElement.style.display = "block";
-                } else {
-                // Hide the description container if there's no description
-                descriptionElement.parentElement.style.display = "none";
+                if (descriptionWrapper) descriptionWrapper.style.display = "block";
+                } else if (descriptionWrapper) {
+                descriptionWrapper.style.display = "none";
                 }
             }
 
@@ -478,8 +441,8 @@
                 const imgElement = document.createElement("img");
                 imgElement.src = image;
                 imgElement.alt = `Blog Image ${index + 1}`;
-                imgElement.className = "img-fluid rounded shadow-lg d-block mx-auto";
-                
+                imgElement.className = "img-fluid rounded d-block mx-auto blog-image";
+
                 imgElement.style.maxWidth = "100%";
                 imgElement.style.height = "auto";
                 
@@ -547,9 +510,8 @@
             const newImage = new Image();
             newImage.src = path + '?nocache=' + new Date().getTime();
             newImage.alt = `Blog Image ${index + 1}`;
-            newImage.className = 'img-fluid rounded shadow-lg d-block mx-auto';
+            newImage.className = 'img-fluid rounded d-block mx-auto blog-image';
             newImage.style.maxWidth = '100%';
-            newImage.style.border = '2px solid green';
             
             col.appendChild(newImage);
             
@@ -601,20 +563,148 @@
     src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
   ></script>
   <style>
-    #blog-title-container table {
-      width: 100%;
-      table-layout: fixed !important;
+    .blog-hero.section-height-3 {
+      min-height: 240px !important;
     }
 
-    #blog-title-container table th:first-child,
-    #blog-title-container table td:first-child {
-      width: 120px !important;
-      white-space: nowrap;
+    .blog-breadcrumb-lift {
+      transform: translateY(-1rem);
     }
 
-    #blog-title-container table th:nth-child(2),
-    #blog-title-container table td:nth-child(2) {
-      width: auto !important;
+    @media (max-width: 991.98px) {
+      .blog-hero > .container {
+        margin-top: 2.5rem !important;
+        padding-top: 2rem !important;
+      }
+    }
+
+
+    .blog-hero .breadcrumb {
+      margin-bottom: 0;
+    }
+
+    .blog-post-bg {
+      background:
+        radial-gradient(1200px 400px at 50% -100px, #f1ede5 0%, rgba(241, 237, 229, 0) 70%),
+        #f7f5f1;
+      padding: 0.75rem 0 3rem;
+    }
+
+    .blog-post-bg > .container {
+      max-width: 1080px;
+    }
+
+    .blog-post-bg .row.mb-4 {
+      margin-bottom: 1rem !important;
+    }
+
+    .blog-article {
+      max-width: 1040px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 14px;
+      padding: clamp(1.75rem, 1rem + 2vw, 2.75rem) clamp(1.5rem, 0.75rem + 2.5vw, 3.5rem);
+      box-shadow:
+        0 1px 2px rgba(17, 24, 39, 0.04),
+        0 8px 24px rgba(17, 24, 39, 0.05);
+    }
+
+    .blog-article-title {
+      color: #111827;
+      font-weight: 700;
+      font-size: clamp(1.65rem, 1rem + 2vw, 2.4rem);
+      line-height: 1.35;
+      letter-spacing: 0.01em;
+      text-align: center;
+      margin: 0.5rem 0 1.5rem;
+    }
+
+    .blog-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem 2.5rem;
+      margin: 0 0 2.25rem;
+      padding: 1.1rem 0;
+      border-top: 1px solid #ececec;
+      border-bottom: 1px solid #ececec;
+    }
+
+    .blog-meta-item {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .blog-meta-label {
+      color: #9ca3af;
+      font-size: 0.78rem;
+      font-weight: 500;
+      margin-bottom: 0.2rem;
+    }
+
+    .blog-meta-value {
+      color: #1f2937;
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+
+    .blog-description-wrapper {
+      margin: 0 0 2.5rem;
+    }
+
+    .blog-images {
+      margin: 0 -0.75rem;
+    }
+
+    .blog-image {
+      border-radius: 6px;
+    }
+
+    .blog-description {
+      color: #1f2937;
+      font-size: 1.0625rem;
+      line-height: 1.9;
+    }
+
+    .blog-description p {
+      margin: 0 0 1.25em;
+    }
+
+    .blog-description p:last-child {
+      margin-bottom: 0;
+    }
+
+    .article-container {
+      color: #1f2937;
+      font-size: 1.0625rem;
+      line-height: 1.9;
+    }
+
+    .article-container .article-content p {
+      margin: 0 0 1.25em;
+    }
+
+    @media (max-width: 575px) {
+      .blog-post-bg {
+        padding: 1.5rem 0 2.5rem;
+      }
+
+      .blog-article {
+        padding: 1.5rem 1.25rem;
+        border-radius: 10px;
+      }
+
+      .blog-meta {
+        gap: 1rem 1.5rem;
+        padding: 1rem 0;
+      }
+
+      .blog-description {
+        font-size: 1rem;
+        line-height: 1.85;
+      }
     }
 
     /* Image caption styling */
@@ -632,6 +722,8 @@
       display: block;
       width: 100%;
       clear: both;
+      color: #6b7280;
+      font-size: 0.95rem;
     }
   </style>
 </html>
