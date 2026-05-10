@@ -231,20 +231,22 @@
       </header>
 
       <div role="main" class="main">
-        <section class="section section-height-3 border-0 m-0">
-          <div class="container position-relative pt-5 pb-5-5 mt-5 mb-5">
-            <div class="row justify-content-end pt-1 mt-lg-5">
+        <section class="section section-height-3 border-0 m-0 blog-hero">
+          <div class="container position-relative pt-5 pb-3 mt-5 mb-2">
+            <div class="row justify-content-end pt-1 mt-lg-3">
               <div class="col-7 col-md-5 position-relative">
-                <ul
-                  class="breadcrumb d-block ps-2 appear-animation"
-                  data-appear-animation="fadeInLeftShorterPlus"
-                  data-appear-animation-delay="200"
-                >
-                  <li><a href="index.html">ホーム</a></li>
-                  <li class="active">ブログ</li>
-                </ul>
+                <div class="blog-breadcrumb-lift">
+                  <ul
+                    class="breadcrumb d-block ps-2 appear-animation"
+                    data-appear-animation="fadeInLeftShorterPlus"
+                    data-appear-animation-delay="200"
+                  >
+                    <li><a href="index.html">ホーム</a></li>
+                    <li class="active">ブログ</li>
+                  </ul>
+                </div>
                 <h1
-                  class="position-absolute top-100 left-0 text-color-light font-weight-bold text-6 line-height-3 text-end mt-5-5"
+                  class="position-absolute top-100 left-0 text-color-light font-weight-bold text-6 line-height-3 text-end mt-3"
                 >
                   <span
                     class="d-block position-relative z-index-1 pb-5 ps-lg-3 appear-animation"
@@ -278,31 +280,20 @@
           </div>
         </section>
 
-        <div class="container mt-5 pt-4 mb-5 mb-lg-4 mb-xl-0 pb-3 pb-xl-0">
-          <div class="row">
-            <div class="col">
-              <h2
-                class="text-color-dark font-weight-bold text-7 line-height-1 mb-3-5 appear-animation"
-                data-appear-animation="fadeInUpShorterPlus"
-                data-appear-animation-delay="200"
-              >
-                ブログ
-              </h2>
-              <p
-                class="text-4 font-weight-light mb-5-5 appear-animation"
-                data-appear-animation="fadeInUpShorterPlus"
-                data-appear-animation-delay="400"
-              >
-                TENGUに関する最新情報
-              </p>
-            </div>
-          </div>
-          <div class="table-responsive">
-            <table class="table table-shikaku">
-              <tbody id="blog-table">
+        <div class="blog-list-bg">
+          <div class="container pt-3 pb-5">
+            <section class="blog-list-card appear-animation"
+              data-appear-animation="fadeInUpShorterPlus"
+              data-appear-animation-delay="200"
+            >
+              <header class="blog-list-header">
+                <h2 class="blog-list-heading">投稿一覧</h2>
+                <p class="blog-list-subtitle">TENGUに関する最新情報</p>
+              </header>
+              <ul class="blog-list" id="blog-list">
                 <!-- Blog posts go here automatically. -->
-              </tbody>
-            </table>
+              </ul>
+            </section>
           </div>
         </div>
       </div>
@@ -316,27 +307,37 @@
         fetch("blog/posts.json")
           .then((response) => response.json())
           .then((posts) => {
-            let blogTable = document.getElementById("blog-table");
-            blogTable.innerHTML = "";
+            const list = document.getElementById("blog-list");
+            list.innerHTML = "";
 
             posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
             posts.forEach((post) => {
-              let row = document.createElement("tr");
-              row.classList.add("mb-5");
+              const li = document.createElement("li");
+              li.className = "blog-list-item";
 
-              let dateCell = document.createElement("td");
-              dateCell.classList.add("text-4-5", "font-weight-light", "mb-3");
-              dateCell.textContent = post.date;
+              const link = document.createElement("a");
+              link.className = "blog-list-link";
+              link.href = `blog_post.html?id=${post.id}`;
 
-              let titleCell = document.createElement("td");
-              titleCell.classList.add("text-4-5", "font-weight-light", "mb-3");
+              const date = document.createElement("span");
+              date.className = "blog-list-date";
+              date.textContent = post.date;
 
-              titleCell.innerHTML = `<a href="blog_post.html?id=${post.id}">${post.title}</a>`;
+              const title = document.createElement("span");
+              title.className = "blog-list-title";
+              title.textContent = post.title;
 
-              row.appendChild(dateCell);
-              row.appendChild(titleCell);
-              blogTable.appendChild(row);
+              const arrow = document.createElement("span");
+              arrow.className = "blog-list-arrow";
+              arrow.setAttribute("aria-hidden", "true");
+              arrow.textContent = "→";
+
+              link.appendChild(date);
+              link.appendChild(title);
+              link.appendChild(arrow);
+              li.appendChild(link);
+              list.appendChild(li);
             });
           })
           .catch((error) => console.error("Error loading blog:", error));
@@ -376,4 +377,150 @@
     type="text/javascript"
     src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
   ></script>
+  <style>
+    .blog-hero.section-height-3 {
+      min-height: 240px !important;
+    }
+
+    .blog-breadcrumb-lift {
+      transform: translateY(-1rem);
+    }
+
+    .blog-hero .breadcrumb {
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 991.98px) {
+      .blog-hero > .container {
+        margin-top: 2.5rem !important;
+        padding-top: 2rem !important;
+      }
+    }
+
+    .blog-list-bg {
+      background:
+        radial-gradient(1200px 400px at 50% -100px, #f1ede5 0%, rgba(241, 237, 229, 0) 70%),
+        #f7f5f1;
+      padding: 0.75rem 0 3rem;
+    }
+
+    .blog-list-bg > .container {
+      max-width: 1080px;
+    }
+
+    .blog-list-card {
+      max-width: 1040px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 14px;
+      padding: clamp(1.75rem, 1rem + 2vw, 2.75rem) clamp(1.5rem, 0.75rem + 2.5vw, 3.5rem);
+      box-shadow:
+        0 1px 2px rgba(17, 24, 39, 0.04),
+        0 8px 24px rgba(17, 24, 39, 0.05);
+    }
+
+    .blog-list-header {
+      margin: 0 0 1.5rem;
+    }
+
+    .blog-list-heading {
+      color: #111827;
+      font-weight: 700;
+      font-size: clamp(1.4rem, 0.9rem + 1.5vw, 1.85rem);
+      line-height: 1.35;
+      margin: 0 0 0.4rem;
+    }
+
+    .blog-list-subtitle {
+      color: #6b7280;
+      font-size: 0.98rem;
+      margin: 0;
+    }
+
+    .blog-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      border-top: 1px solid #ececec;
+    }
+
+    .blog-list-item {
+      border-bottom: 1px solid #ececec;
+    }
+
+    .blog-list-link {
+      display: grid;
+      grid-template-columns: 7.5rem 1fr auto;
+      gap: 1.25rem;
+      align-items: center;
+      padding: 1.1rem 0.75rem;
+      text-decoration: none;
+      color: inherit;
+      border-radius: 8px;
+      transition: background 150ms ease;
+    }
+
+    .blog-list-link:hover,
+    .blog-list-link:focus-visible {
+      background: #faf8f4;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .blog-list-date {
+      color: #9ca3af;
+      font-size: 0.92rem;
+      font-weight: 500;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.01em;
+    }
+
+    .blog-list-title {
+      color: #1f2937;
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: 1.55;
+    }
+
+    .blog-list-link:hover .blog-list-title,
+    .blog-list-link:focus-visible .blog-list-title {
+      color: #111827;
+    }
+
+    .blog-list-arrow {
+      color: #c79b54;
+      font-size: 1rem;
+      font-weight: 600;
+      opacity: 0;
+      transform: translateX(-4px);
+      transition: opacity 150ms ease, transform 150ms ease;
+    }
+
+    .blog-list-link:hover .blog-list-arrow,
+    .blog-list-link:focus-visible .blog-list-arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    @media (max-width: 575px) {
+      .blog-list-bg {
+        padding: 0 0 2.5rem;
+      }
+
+      .blog-list-card {
+        padding: 1.5rem 1.25rem;
+        border-radius: 10px;
+      }
+
+      .blog-list-link {
+        grid-template-columns: 1fr;
+        gap: 0.25rem;
+        padding: 1rem 0.25rem;
+      }
+
+      .blog-list-arrow {
+        display: none;
+      }
+    }
+  </style>
 </html>
