@@ -310,6 +310,8 @@
                   </div>
 
                   <div class="row blog-images" id="blog-images"></div>
+
+                  <div class="row blog-videos" id="blog-videos"></div>
                 </article>
               </div>
             </div>
@@ -469,6 +471,38 @@
             } else {
                 imagesContainer.innerHTML = '';
                 // Don't show the empty message since some posts won't have images
+            }
+
+            // Handle videos
+            const videosContainer = document.getElementById("blog-videos");
+
+            if (videosContainer && post.videos && Array.isArray(post.videos) && post.videos.length > 0) {
+                videosContainer.innerHTML = "";
+
+                post.videos.forEach((video, index) => {
+                const colDiv = document.createElement("div");
+                colDiv.className = "col-12 mb-4 text-center";
+
+                const videoElement = document.createElement("video");
+                videoElement.src = video;
+                videoElement.controls = true;
+                videoElement.playsInline = true;
+                videoElement.preload = "metadata";
+                videoElement.className = "rounded d-block mx-auto blog-video";
+
+                colDiv.appendChild(videoElement);
+
+                if (post.videoCaptions && Array.isArray(post.videoCaptions) && post.videoCaptions[index]) {
+                    const captionElement = document.createElement("p");
+                    captionElement.className = "text-center mt-3 mb-0 text-4 font-weight-medium";
+                    captionElement.textContent = post.videoCaptions[index];
+                    colDiv.appendChild(captionElement);
+                }
+
+                videosContainer.appendChild(colDiv);
+                });
+            } else if (videosContainer) {
+                videosContainer.innerHTML = '';
             }
             })
             .catch(error => {
@@ -724,6 +758,20 @@
       display: block;
       width: 100%;
       clear: both;
+      color: #6b7280;
+      font-size: 0.95rem;
+    }
+
+    /* Video styling */
+    #blog-videos video {
+      width: 100%;
+      max-width: 420px;
+      max-height: 70vh;
+      height: auto;
+      background-color: #000;
+    }
+
+    #blog-videos p {
       color: #6b7280;
       font-size: 0.95rem;
     }
