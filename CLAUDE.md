@@ -20,13 +20,20 @@ to log in (`gh auth login`) rather than proceeding under a different account.
 Re-check at the start of every session and again immediately before any push or PR —
 `gh` has multiple accounts configured and the active one can change between sessions.
 
+The user's personal/default account is **`jbros17a`**. After finishing
+`samusimitar`-attributed work, restore it: `gh auth switch --user jbros17a`.
+
 ## Blog updates
 
-Posts live in `blog/posts.json` (newest first). `blog.html` and `index.html` only read
-`date` and `title`; `blog_post.html` renders the full entry.
+The full workflow for turning a client request folder into a published post lives in
+the **`blog-post` skill** (`.claude/skills/blog-post/SKILL.md`) — how the request emails
+are structured, the `posts.json` data model, image/caption conventions, the common
+judgment calls (caption copy-paste errors, date/photo corrections, name mismatches),
+browser verification, and the samusimitar PR steps. Invoke it (`/blog-post`) whenever a
+request folder (`pedidos/MMDD/`, `NNNN update/`) needs to become a blog post.
 
-- Images go in `img/social-gathering/` named `YYYYMMDD-N.jpg`, referenced by `images`
-  with matching `captions`.
-- Videos go in `video/` and are referenced by `videos` with matching `videoCaptions`.
-- `date` is the publication date (`YYYY/MM/DD`, drives sort order); `displayDate` is the
-  Japanese-era date of the event itself.
+Quick reference: posts live in `blog/posts.json` (newest first). `blog.html` and
+`index.html` read only `date` and `title`; `blog_post.html` renders the full entry.
+Images go in `img/social-gathering/` named `YYYYMMDD-N.jpg`; videos in `video/`. `date`
+(= `id` digits) is the publication/更新日 date and drives sort order; `displayDate` is
+the Japanese-era event date (日時).
