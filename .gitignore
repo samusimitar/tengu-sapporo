@@ -1,3 +1,5 @@
 .DS_Store
 .vscode
 .claude/settings.local.json
+# Client blog-update request folders (email + photos), one dated subfolder per request
+blog-update-requests/
