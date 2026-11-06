@@ -105,6 +105,14 @@ python3 -c "import json; p=json.load(open('blog/posts.json')); \
 print(p[0]['id'], p[0]['title'], 'imgs', len(p[0]['images']), 'caps', len(p[0]['captions']))"
 ```
 
+Keep photos light: if a photo is over ~600 KB or wider than 1600 px, shrink it
+(`sips -Z 1600 -s formatOptions 75 <file>`). Convert PNG photos to `.jpg`.
+
+Add the post to `sitemap.xml`: a new `<url>` with
+`<loc>https://www.tengu-sapporo.com/blog_post.html?id=<id></loc>` and
+`<lastmod>YYYY-MM-DD</lastmod>`, and bump the `<lastmod>` of the home page and
+`blog.html` entries to the same date.
+
 ## 5. Verify in the browser (don't skip)
 
 ```bash

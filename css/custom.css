@@ -84,3 +84,8 @@
   object-fit: cover;
   margin-left: 35px;
 }
+
+/* Keep decorative elements from making the page scroll sideways on phones */
+.body {
+  overflow-x: clip;
+}
