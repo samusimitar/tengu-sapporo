@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.tengu-sapporo.com/</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-27</lastmod>
   </url>
   <url>
     <loc>https://www.tengu-sapporo.com/company.html</loc>
@@ -42,7 +42,15 @@
   </url>
   <url>
     <loc>https://www.tengu-sapporo.com/blog.html</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-27</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tengu-sapporo.com/blog_post.html?id=20261127-2</loc>
+    <lastmod>2026-11-27</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tengu-sapporo.com/blog_post.html?id=20261127</loc>
+    <lastmod>2026-11-27</lastmod>
   </url>
   <url>
     <loc>https://www.tengu-sapporo.com/contact.html</loc>
