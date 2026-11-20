@@ -138,10 +138,22 @@ Verify `gh pr view <n> --json author` shows `samusimitar`. Then restore `jbros17
 
 ## 7. Optional extras (only when asked)
 
-- **Schedule the merge** for the 更新日 midnight JST. Past posts were merged at
-  `00:00 JST` of the publication date via a one-time cloud routine (`/schedule`), i.e.
-  `run_once_at` = `<date>T15:00:00Z`. The merge prompt must itself switch to
-  `samusimitar` and merge unconditionally. This is user-triggered — confirm timing.
+- **Schedule the merge** for the 更新日 (when it's in the future) — confirm timing
+  with the user. Label the PR `publish-YYYY-MM-DD` (as samusimitar):
+
+  ```bash
+  gh label create publish-2026-11-27 --color 0E8A16 --force
+  gh api -X POST repos/samusimitar/tengu-sapporo/issues/<n>/labels -f "labels[]=publish-2026-11-27"
+  ```
+
+  (`gh pr edit --add-label` fails on this gh version with a "Projects (classic)" error.)
+
+  `.github/workflows/scheduled-publish.yml` runs at 00:05 JST (backup run 06:00 JST)
+  and merges every open PR whose label date has arrived, then makes sure Pages
+  rebuilds. A failed merge (e.g. a `posts.json` conflict between two scheduled PRs)
+  fails the run and GitHub emails the owner. Preview with
+  `gh workflow run scheduled-publish.yml -f dry_run=true`. Two posts on the same
+  更新日 can share one PR (see ids `20261127` / `20261127-2`).
 - **Clean up** the request folder when asked: move it (and any stray `*_update.txt`) to
   `~/.Trash/` (reversible) rather than `rm`.
 - **Response email** — a short Japanese reply from Jordi to 西村さん confirming the post
